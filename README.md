@@ -1,96 +1,57 @@
-<div align="center">
+# Chairside Pages edition
 
-# FlowForge
+A static dental workflow prototype by Sergio Rodriguez. Explore an assumptions-based calculator, inspect three workflow graphs, and download their example JSON.
 
-<a href="https://ssh-pur66.github.io/FlowForge/">
-  <img src="https://img.shields.io/badge/Official_Website-Live-00C853?style=for-the-badge&logo=githubpages&logoColor=white" />
-</a>
-<a href="https://github.com/SSH-PuR66/FlowForge">
-  <img src="https://img.shields.io/badge/Source_Code-GitHub-181717?style=for-the-badge&logo=github&logoColor=white" />
-</a>
-<img src="https://img.shields.io/badge/Status-Active-00BFFF?style=for-the-badge" />
-<img src="https://img.shields.io/badge/Built_With-HTML/CSS/JS-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
+[Live demo](https://ssh-pur66.github.io/chairside-pages/) · [Source](https://github.com/SSH-PuR66/chairside-pages) · [Canonical Cloudflare demo](https://github.com/SSH-PuR66/chairside)
 
-<br>
-<br>
+Previously published as **FlowForge**. This is a naming and release repair; the repository history, template JSON, and original preview image remain intact. The preview asset may still carry the former name.
 
-<pre>
-███████╗██╗      ██████╗ ██╗    ██╗███████╗ ██████╗ ██████╗  ██████╗ ███████╗
-██╔════╝██║     ██╔═══██╗██║    ██║██╔════╝██╔═══██╗██╔══██╗██╔════╝ ██╔════╝
-█████╗  ██║     ██║   ██║██║ █╗ ██║█████╗  ██║   ██║██████╔╝██║  ███╗█████╗  
-██╔══╝  ██║     ██║   ██║██║███╗██║██╔══╝  ██║   ██║██╔══██╗██║   ██║██╔══╝  
-██║     ███████╗╚██████╔╝╚███╔███╔╝██║     ╚██████╔╝██║  ██║╚██████╔╝███████╗
-╚═╝     ╚══════╝ ╚═════╝  ╚══╝╚══╝ ╚═╝      ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚══════╝
-</pre>
+## What is implemented
 
-### We automate your dental practice's busywork.
+- A responsive HTML/CSS/JavaScript interface with mobile navigation.
+- A calculator for estimated staff-time cost, assumed time savings, and annual value after a fixed $500 monthly fee. It uses 4.33 weeks per month, excludes the illustrative $3,500 setup fee, and reports negative scenarios.
+- Workflow preview modals and downloads for intake, appointment reminders, and invoice sync.
+- Package selection that prefills a general inquiry form. The existing Formspree endpoint receives submissions; no patient data should be entered.
+- Vitest calculator checks and a static build that includes scripts, styles, templates, and the unchanged preview image.
 
-**FlowForge** is a clean, modern workflow automation concept for dental practices — built to reduce repetitive admin work, streamline office operations, and create a smoother experience for staff and patients.
+## Implementation boundary
 
-<br>
+The browser does not run the workflow JSON or connect to practice software. The n8n examples contain placeholder identifiers and incomplete integration settings. Reminder replies, duplicate prevention, accounting reconciliation, failure recovery, and clinical deployment have not been validated. JSON parsing is a packaging check, not proof of import or execution.
 
-[View Live Website](https://ssh-pur66.github.io/FlowForge/) · [Repository](https://github.com/SSH-PuR66/FlowForge)
+Prices and package scopes are illustrative. Calculator output is an estimate from user assumptions, not observed savings, a financial return, a support commitment, or a compliance claim.
 
-</div>
+## Run and verify
 
----
+Use Node.js 22.12 or later on a supported LTS release. The test toolchain was updated to Vitest 5.0.3; no npm dependencies are shipped in the static output.
 
-## Overview
-
-FlowForge is a front-end web project designed around a simple idea:
-
-> Dental teams should spend less time fighting busywork and more time helping patients.
-
-The site presents a modern product landing page for a dental automation platform, focused on operational efficiency, clean UI, and a professional brand identity.
-
----
-
-## Features
-
-- Modern landing page design
-- Dental-practice automation concept
-- Responsive layout
-- Clean visual hierarchy
-- GitHub Pages deployment
-- Automated deployment through GitHub Actions
-- Developer workflow with formatting and testing scripts
-
----
-
-## Tech Stack
-
-<div align="center">
-
-<img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
-<img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" />
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" />
-<img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
-<img src="https://img.shields.io/badge/GitHub_Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white" />
-<img src="https://img.shields.io/badge/GitHub_Pages-222222?style=for-the-badge&logo=githubpages&logoColor=white" />
-
-</div>
-
----
-
-## Live Demo
-
-The official website is deployed through GitHub Pages:
-
-```txt
-https://ssh-pur66.github.io/FlowForge/
-
-
-# 1. Clone the repository
-git clone https://github.com/SSH-PuR66/FlowForge.git
-
-# 2. Move into the project folder
-cd FlowForge
-
-# 3. Install dependencies
-npm install
-
-# 4. Run local development server
+```sh
+git clone https://github.com/SSH-PuR66/chairside-pages.git
+cd chairside-pages
+npm ci
+npm run format:check
+npm test
+npm run build
 npm run dev
+```
 
-The local development server should be available at:
-http://localhost:3000
+The local server serves **dist/**. The build copies **src/**, **assets/**, and **templates/** together, then checks local page references, anchors, and all three template downloads. Relative template URLs work at both a host root and the GitHub Pages repository subpath.
+
+## Deployment
+
+GitHub Pages: **https://ssh-pur66.github.io/chairside-pages/**.
+
+The GitHub Actions workflow verifies formatting, calculator tests, and build references before uploading **dist/** and publishing the main branch. Pull requests run verification without a production deployment.
+
+## Source layout
+
+```text
+src/index.html             Interface and prototype boundaries
+src/css/styles.css         Existing design
+src/js/main.js             Calculator, navigation, selection, and modals
+src/js/roi.js              Pure calculator logic
+templates/dental/*.json    Illustrative workflow graphs
+tests/roi.test.js          Calculator regression checks
+scripts/build.mjs         Static output bundle
+scripts/check-build.mjs   Page and download reference validation
+assets/og.png             Preserved original preview asset
+```

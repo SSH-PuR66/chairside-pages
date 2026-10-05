@@ -58,6 +58,8 @@ function recalc() {
   animateNumber(outputs.cost, result.monthlyCost);
   animateNumber(outputs.save, result.monthlySavings);
   animateNumber(outputs.net, result.annualNet);
+  outputs.net.parentElement.classList.toggle('loss', result.annualNet < 0);
+  outputs.net.parentElement.classList.toggle('gain', result.annualNet >= 0);
 
   // Personalize the hero headline
   const heroHours = document.getElementById('heroHours');
@@ -101,6 +103,7 @@ navLinks.querySelectorAll('a').forEach((a) =>
   a.addEventListener('click', () => {
     navLinks.classList.remove('open');
     navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
   }),
 );
 
@@ -120,8 +123,8 @@ const TEMPLATE_INFO = {
     steps: [
       'Every hour, the system checks tomorrow’s schedule',
       'Patients with appointments in the next 24h get an SMS reminder',
-      'They reply C to confirm or R to reschedule',
-      'Your schedule stays full without anyone making calls',
+      'The message requests C or R replies; handling those replies is not implemented',
+      'Credentials, duplicate prevention, time bounds, and reply routing need implementation',
     ],
   },
   'invoice-sync': {
@@ -130,7 +133,7 @@ const TEMPLATE_INFO = {
       'Every Friday at 9am, the week’s treatments are pulled automatically',
       'Invoices are created and matched in your accounting tool',
       'Unpaid balances are flagged in one email to the office manager',
-      'The 3-hour Friday ritual becomes a 3-minute review',
+      'The graph needs field mapping, reconciliation, and error handling before use',
     ],
   },
 };
@@ -143,8 +146,7 @@ document.querySelectorAll('[data-template]').forEach((btn) => {
     document.getElementById('modalSteps').innerHTML = info.steps
       .map((s) => `<li>${s}</li>`)
       .join('');
-    document.getElementById('modalDownload').href =
-      `../templates/dental/${btn.dataset.template}.json`;
+    document.getElementById('modalDownload').href = `templates/dental/${btn.dataset.template}.json`;
     overlay.hidden = false;
     document.body.style.overflow = 'hidden';
   });
